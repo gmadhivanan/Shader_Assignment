@@ -1,28 +1,28 @@
-void main() {
+void main () {
   vec2 p = uvN();
   float color = 0.; 
   float frequency = 2.;
   float gain = 2.;
   float thickness = .35;
-  float col1 = 1.;
-  float col2 = 1.;
+  float col1 = 0.;
+  float col2 = 0.;
   float col3 = 0.;
-  float mousex = mouse[1]/resolution[1];
-  float mousey= mouse[2]/resolution[1];
-  
-  //col1+=sin(col1+time);
-  //col2+=sin(col2+time);
-  //col3+=sin(col3+time);
-  p.x=step(mod(distance(p.x,mouse[1]),0.2),0.2);
-  p.y=step(mod(distance(p.y,mouse[2]),0.2),0.2);
+  vec4 m = mouse;
+  vec2 res= resolution;
+  float mousex = 1.2*(m.x/res.r)-.5;
+  //float mousex=.5;
+  float mousey= 1.-m.y/res.r;
+  //float mousey=.5;
+  // p.x += sin(time*1.) * .25;
+   //p.y += cos(time*1.)*.25;
+  //col1+=cos(col1+time)-.5;
+  col2+=sin(col2+time);
+  col3+=sin(col3+time);
+float c = step(distance(p,vec2(mousex,mousey))/2.,.02);
+color = noise(abs(p.x*p.y));
 
-  //p.x += pow(tan(sin(cos(pow(p.x+time/10.,2.)))),5.)/gain;
-  //p.y += pow(tan(sin(cos(pow(p.y+time/10.,2.)))),5.)/gain;
-  
-  //p.x += step(pow(tan(sin(cos(pow(p.x+time/10.,2.)))),5.)/gain,0.2); 
-  //p.y += pow(tan(sin(cos(pow(p.y+time/10.,2.)))),5.)/gain;
-  //color = noise(abs( thickness / p.x )*abs( thickness / p.y ));
-  color = noise(abs(p.x*p.y-time));
-
-  gl_FragColor = vec4( color ,col1,col2,col3);
+vec4 lastFrame= texture2D(backbuffer, uvN());
+vec4 newFrame=vec4(c+lastFrame*.75);
+newFrame=newFrame+vec4(color,col1,col2,col3);
+	gl_FragColor = newFrame;
 }
