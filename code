@@ -12,15 +12,17 @@ void main () {
   float mousex = 1.2*(m.x/res.r)-.5;
   //float mousex=.5;
   float mousey= 1.-m.y/res.r;
+  float ballsize=0.02;
   //float mousey=.5;
   // p.x += sin(time*1.) * .25;
    //p.y += cos(time*1.)*.25;
   //col1+=cos(col1+time)-.5;
   col2+=sin(col2+time);
   col3+=sin(col3+time);
-float c = step(distance(p,vec2(mousex,mousey))/2.,.02);
+ ballsize=clamp(ballsize+time,0.2,.06);
+float c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
 color = noise(abs(p.x*p.y));
-
+ 
 vec4 lastFrame= texture2D(backbuffer, uvN());
 vec4 newFrame=vec4(c+lastFrame*.75);
 newFrame=newFrame+vec4(color,col1,col2,col3);
