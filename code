@@ -4,9 +4,9 @@ void main () {
   float frequency = 2.;
   float gain = 2.;
   float thickness = .35;
-  float col1 = 0.;
-  float col2 = 0.;
-  float col3 = 0.;
+  float col1 = 0.1;
+  float col2 = 0.1;
+  float col3 = 0.1;
   vec4 m = mouse;
   vec2 res= resolution;
   float mousex = 1.2*(m.x/res.r)-.5;
@@ -19,9 +19,16 @@ void main () {
   //col1+=cos(col1+time)-.5;
   col2+=sin(col2+time);
   col3+=sin(col3+time);
- ballsize=clamp(ballsize+time,0.2,.06);
+  
+  //p.x += step(pow(tan(sin(cos(pow(p.x+time+mousex/10.,2.)))),5.)/gain,0.2); 
+  //p.y += pow(tan(sin(cos(pow(p.y+time+mousey/10.,2.)))),5.)/gain;
+float vor= voronoi(p+time+vec2(mousex,mousey));
+
+  
+  
 float c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
 color = noise(abs(p.x*p.y));
+//color = sin(vor);
  
 vec4 lastFrame= texture2D(backbuffer, uvN());
 vec4 newFrame=vec4(c+lastFrame*.75);
