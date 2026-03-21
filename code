@@ -13,6 +13,7 @@ void main () {
   //float mousex=.5;
   float mousey= 1.-m.y/res.r;
   float ballsize=0.02;
+  float c =0.;
   //float mousey=.5;
   // p.x += sin(time*1.) * .25;
    //p.y += cos(time*1.)*.25;
@@ -25,11 +26,12 @@ void main () {
 float vor= voronoi(p+time+vec2(mousex,mousey));
 
 
-  
-float c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
+
+//c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
 color = noise(abs(p.x*p.y));
 color = sin(vor);
-color= sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
+//color=sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
+color=color+sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
  
 vec4 lastFrame= texture2D(backbuffer, uvN());
 vec4 newFrame=vec4(c+lastFrame*.75);
