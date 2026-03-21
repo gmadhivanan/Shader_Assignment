@@ -24,11 +24,12 @@ void main () {
   //p.y += pow(tan(sin(cos(pow(p.y+time+mousey/10.,2.)))),5.)/gain;
 float vor= voronoi(p+time+vec2(mousex,mousey));
 
-  
+
   
 float c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
 color = noise(abs(p.x*p.y));
-//color = sin(vor);
+color = sin(vor);
+color= sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
  
 vec4 lastFrame= texture2D(backbuffer, uvN());
 vec4 newFrame=vec4(c+lastFrame*.75);
