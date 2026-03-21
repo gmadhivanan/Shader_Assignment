@@ -1,5 +1,6 @@
 void main () {
-  vec2 p = uvN();
+  vec2 p = uvN()*2.-1.;
+
   float color = 0.; 
   float frequency = 2.;
   float gain = 2.;
@@ -9,10 +10,10 @@ void main () {
   float col3 = 0.1;
   vec4 m = mouse;
   vec2 res= resolution;
-  float mousex = 1.2*(m.x/res.r)-.5;
+  float mousex = 1.2*(m.x/res.r)-1.2;
   //float mousex=.5;
-  float mousey= 1.-m.y/res.r;
-  float ballsize=0.02;
+  float mousey= .75-m.y/res.r;
+  float ballsize=0.002;
   float c =0.;
   //float mousey=.5;
   // p.x += sin(time*1.) * .25;
@@ -27,7 +28,8 @@ float vor= voronoi(p+time+vec2(mousex,mousey));
 
 
 
-//c = step(distance(p,vec2(mousex,mousey))/2.,ballsize);
+c = .2*smoothstep(distance(p,vec2(mousex,mousey))/2.,ballsize,.2);
+//p=fract(p*10.0)-.5;
 color = noise(abs(p.x*p.y));
 color = sin(vor);
 //color=sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
