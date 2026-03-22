@@ -10,9 +10,9 @@ void main () {
   float col3 = 0.1;
   vec4 m = mouse;
   vec2 res= resolution;
-  float mousex = 1.2*(m.x/res.r)-1.2;
+  float mousex = 1.15*(m.x/res.r)-1.2;
   //float mousex=.5;
-  float mousey= .75-m.y/res.r;
+  float mousey= 1.-m.y/res.r;
   float ballsize=0.002;
   float c =0.;
   //float mousey=.5;
@@ -21,19 +21,26 @@ void main () {
   //col1+=cos(col1+time)-.5;
   col2+=sin(col2+time);
   col3+=sin(col3+time);
-  
-  //p.x += step(pow(tan(sin(cos(pow(p.x+time+mousex/10.,2.)))),5.)/gain,0.2); 
+
+
+//2nd comment
+  p.x += step(pow(tan(sin(cos(pow(p.x+time+mousex/10.,2.)))),5.)/gain,0.2); 
   //p.y += pow(tan(sin(cos(pow(p.y+time+mousey/10.,2.)))),5.)/gain;
-float vor= voronoi(p+time+vec2(mousex,mousey));
+//3rd uncomment
+//float vor= voronoi(p+time+vec2(mousex,mousey));
 
 
-
-c = .2*smoothstep(distance(p,vec2(mousex,mousey))/2.,ballsize,.2);
+//1st uncomment
+//c = .2*smoothstep(distance(p,vec2(mousex,mousey))/2.,ballsize,.2);
+//5th uncomment then recomment
 //p=fract(p*10.0)-.5;
-color = noise(abs(p.x*p.y));
-color = sin(vor);
+//color = noise(abs(p.x*p.y));
+
+//3rd uncomment
+//color = sin(vor);
+//4th uncomment
 //color=sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
-color=color+sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
+//color=color+sin(exp2(p.x+mousex)+exp2(p.y+mousey))+sin(p.y+time) ;
  
 vec4 lastFrame= texture2D(backbuffer, uvN());
 vec4 newFrame=vec4(c+lastFrame*.75);
